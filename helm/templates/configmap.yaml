@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+  labels:
+    app: {{ .Release.Name }}
+data:
+  LLM_PROVIDER: {{ .Values.env.LLM_PROVIDER | quote }}
+  AZURE_OPENAI_DEPLOYMENT: {{ .Values.env.AZURE_OPENAI_DEPLOYMENT | quote }}
+  AZURE_OPENAI_API_VERSION: {{ .Values.env.AZURE_OPENAI_API_VERSION | quote }}
+  MAX_CONCURRENT_BROWSERS: {{ .Values.env.MAX_CONCURRENT_BROWSERS | quote }}
+  MAX_RESULTS_PER_HCP: {{ .Values.env.MAX_RESULTS_PER_HCP | quote }}
+  CONFIDENCE_THRESHOLD: {{ .Values.env.CONFIDENCE_THRESHOLD | quote }}
+  LOG_LEVEL: {{ .Values.env.LOG_LEVEL | quote }}
+  DATABASE_URL: {{ .Values.env.DATABASE_URL | quote }}
+  CORS_ORIGINS: '["http://localhost:8501"]'

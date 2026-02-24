@@ -1,0 +1,40 @@
+# Default values for hcp-web-crawler
+replicaCount: 1
+
+image:
+  repository: your-registry.example.com/hcp-web-crawler
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  apiPort: 8000
+  uiPort: 8501
+
+ingress:
+  enabled: true
+  host: hcp-crawler.apps.your-cluster.example.com
+
+resources:
+  limits:
+    cpu: "2"
+    memory: 4Gi
+  requests:
+    cpu: "500m"
+    memory: 1Gi
+
+env:
+  LLM_PROVIDER: azure_openai
+  AZURE_OPENAI_DEPLOYMENT: gpt-4o-mini
+  AZURE_OPENAI_API_VERSION: "2024-10-21"
+  MAX_CONCURRENT_BROWSERS: "3"
+  MAX_RESULTS_PER_HCP: "5"
+  CONFIDENCE_THRESHOLD: "70"
+  LOG_LEVEL: INFO
+  DATABASE_URL: "sqlite+aiosqlite:///./data/hcp_crawler.db"
+
+secrets:
+  # These should be injected via OpenShift Secrets
+  AZURE_OPENAI_ENDPOINT: ""
+  AZURE_OPENAI_API_KEY: ""
+  OPENAI_API_KEY: ""

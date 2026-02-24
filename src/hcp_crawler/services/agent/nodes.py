@@ -54,6 +54,14 @@ async def google_search(state: HCPAgentState) -> HCPAgentState:
     scraper = get_scraper()
 
     try:
+        # Human-like delay between search tiers to avoid Google rate-limiting
+        if idx > 0:
+            import asyncio as _aio
+            import random as _rnd
+            delay = _rnd.uniform(3.0, 8.0)
+            logger.info("node.google_search.delay", project_id=state["hcp_input"].project_id, delay_s=round(delay, 1))
+            await _aio.sleep(delay)
+
         hits = await scraper.google_search(query, max_results=settings.max_results_per_hcp)
         logger.info(
             "node.google_search.complete",

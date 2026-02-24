@@ -95,8 +95,8 @@ class ScraperService:
                 from pydoll.constants import Key
                 await tab.keyboard.press(Key.ENTER)
 
-                # Wait for results
-                await asyncio.sleep(random.uniform(2.0, 4.0))
+                # Wait for results (longer to let Google fully render)
+                await asyncio.sleep(random.uniform(3.0, 6.0))
 
                 # Extract results from the page HTML
                 page_source = await tab.page_source

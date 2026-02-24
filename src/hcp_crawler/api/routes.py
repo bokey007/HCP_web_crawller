@@ -53,6 +53,13 @@ async def _process_job(job_id: str, records: list, db_factory) -> None:
 
             for idx, hcp_input in enumerate(records):
                 try:
+                    # Human-like delay between HCP records to avoid Google rate-limiting
+                    if idx > 0:
+                        import random as _rnd
+                        delay = _rnd.uniform(5.0, 12.0)
+                        logger.info("inter_record_delay", job_id=job_id, record=idx + 1, delay_s=round(delay, 1))
+                        await asyncio.sleep(delay)
+
                     # Run the LangGraph agent
                     initial_state: HCPAgentState = {"hcp_input": hcp_input}
                     result = await graph.ainvoke(initial_state)

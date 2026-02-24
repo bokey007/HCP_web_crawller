@@ -405,10 +405,6 @@ with tab_monitor:
         job_id = None
 
     if job_id:
-        col_refresh, col_auto = st.columns([1, 3])
-        with col_refresh:
-            refresh = st.button("🔄 Refresh", use_container_width=True)
-
         resp = api_call("get", f"/jobs/{job_id}")
         if resp:
             progress = resp.json()
@@ -441,9 +437,13 @@ with tab_monitor:
                 st.success("🎉 Processing complete! Check the **📋 Results** tab.")
             elif status == "FAILED":
                 st.error("Processing failed. Check server logs for details.")
+            elif status in ("PENDING", "PROCESSING"):
+                st.info("⏳ Auto-refreshing every 5 seconds…")
+                time.sleep(5)
+                st.rerun()
 
     else:
-        st.info("Upload a file first, or enter a Job ID to monitor.")
+        st.info("Upload a file first to start monitoring.")
 
 
 

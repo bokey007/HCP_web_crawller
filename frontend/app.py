@@ -323,14 +323,14 @@ if resp:
                 unsafe_allow_html=True,
             )
 
-st.markdown("")
+st.markdown("<div style='margin-bottom:16px'></div>", unsafe_allow_html=True)
 
 # ── Tabs ─────────────────────────────────────────────────────────────
 tab_upload, tab_monitor, tab_results = st.tabs(["📤 Upload", "📊 Monitor", "📋 Results"])
 
 # ── Tab 1: Upload ────────────────────────────────────────────────────
 with tab_upload:
-    st.markdown('<div class="glass-container">', unsafe_allow_html=True)
+
     st.markdown("### 📤 Upload HCP Excel File")
     st.markdown(
         "Upload a `.xlsx` file with columns: **PROJECT_ID**, FIRST_NAME, "
@@ -373,12 +373,12 @@ with tab_upload:
                     )
                     st.info("Switch to the **📊 Monitor** tab to track progress.")
 
-    st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 # ── Tab 2: Monitor ───────────────────────────────────────────────────
 with tab_monitor:
-    st.markdown('<div class="glass-container">', unsafe_allow_html=True)
+
     st.markdown("### 📊 Processing Monitor")
 
     job_id = st.session_state.get("active_job_id", "")
@@ -445,12 +445,12 @@ with tab_monitor:
     else:
         st.info("Upload a file first, or enter a Job ID to monitor.")
 
-    st.markdown("</div>", unsafe_allow_html=True)
+
 
 
 # ── Tab 3: Results ───────────────────────────────────────────────────
 with tab_results:
-    st.markdown('<div class="glass-container">', unsafe_allow_html=True)
+
     st.markdown("### 📋 Search Results")
 
     result_job_id = st.session_state.get("active_job_id", "")
@@ -542,4 +542,4 @@ with tab_results:
     else:
         st.info("Enter a Job ID to view results.")
 
-    st.markdown("</div>", unsafe_allow_html=True)
+
